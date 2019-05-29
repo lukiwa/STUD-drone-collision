@@ -2,6 +2,7 @@
 #include "Cuboid.hh"
 #include "Drone.hh"
 #include "GnuplotLink.hh"
+#include "ObjectFactory.hh"
 #include "RegularHex.hh"
 #include "UserInterface.hh"
 #include "Vector3D.hh"
@@ -36,4 +37,5 @@ int main() {
     ui.Init();
     SceneObject::DisplayObjectsNumb();
     Vector3D::DisplayObjectsNumb();
+    ObjectFactory::Get()->Display();
 }
