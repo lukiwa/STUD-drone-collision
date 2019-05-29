@@ -1,0 +1,18 @@
+- oryginalna tablica wierzcholkow
+- obiekt dron i przeszkoda powinny dziedzicyzc po obiekcie            ObiektSceny, ktory dziedziczy po klasie ObiektGraifczny
+-w klasie ObiektSceny powinna byc lista wskaznikow typu shared pointer oraz metoda ktora sprawdza czy zachodzi kolizia
+- auto ptr = std::make_unique<int>
+
+-osobna klasa do zapisu do pliku
+- dziedziczenie interfejsow w klasach np circle moze implementowac interfejs z metoda oblicz pole ale nie musi
+
+
+
+
+ROZSZERZENIA DODATOWE:
+-animacja kolizji
+- animacja z uzyciem watkow
+- AI omijania przeszkod
+-dron bombowiec
+- dron bombowiec - niszczy przeszkody (zrzuca cos)
+-dron mysliwiec - strzela pociskami do przeszkod
