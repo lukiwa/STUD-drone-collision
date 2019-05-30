@@ -1,8 +1,9 @@
+#include <memory>
+#include "Drone.hh"
 #include "SceneObject.hh"
 
-
 /**
- * @brief Singleton fabryki obiektow, umozliwa tworzenie  
+ * @brief Singleton fabryki obiektow, umozliwa tworzenie
  *        odpowiednio zainicializowanych obiektow sceny
  */
 class ObjectFactory {
@@ -24,5 +25,5 @@ class ObjectFactory {
         return &instance;
     }
 
-    void Display() { std::cout << "chodzi" << std::endl; }
+    void Test() { std::make_shared<Drone>(); }
 };
