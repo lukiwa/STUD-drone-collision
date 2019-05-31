@@ -17,7 +17,9 @@ class CuboidObstacle : public Obstacle, public Cuboid {
 
    protected:
    public:
+    // TODO usuniecie mozliwosci konstruowania poza singletonem
     CuboidObstacle() : Obstacle() {}
+    CuboidObstacle(const Vector3D& middle_coords, double edge_length, double height);
     ~CuboidObstacle() {}
 
     bool WriteWertexToFile() override;

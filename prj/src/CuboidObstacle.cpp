@@ -1,4 +1,62 @@
 #include "CuboidObstacle.hh"
+
+CuboidObstacle::CuboidObstacle(const Vector3D& middle_coords, double edge_length, double height) {
+    build_point = middle_coords;
+    std::vector<Vector3D> coords;                // wspolrzedne wierzcholkow
+    Vector3D top_middle_coords = middle_coords;  // gorny punkt na srodku prostpadloscianu
+    // Rozpoczynam wpisywanie od gornego srodkowego punktu
+    top_middle_coords[2] = middle_coords[2] + height / 2;
+
+    /* -------------------------------------------------------------------------- */
+    coords.push_back(top_middle_coords);
+
+    coords.push_back(Insert(top_middle_coords[0] - edge_length / 2,
+                            top_middle_coords[1] + edge_length / 2, top_middle_coords[2]));
+
+    coords.push_back(Insert(top_middle_coords[0] - edge_length / 2,
+                            top_middle_coords[1] + edge_length / 2, top_middle_coords[2] - height));
+
+    coords.push_back(
+        Insert(top_middle_coords[0], top_middle_coords[1], top_middle_coords[2] - height));
+
+    /* -------------------------------------------------------------------------- */
+    coords.push_back(top_middle_coords);
+    coords.push_back(Insert(top_middle_coords[0] + edge_length / 2,
+                            top_middle_coords[1] + edge_length / 2, top_middle_coords[2]));
+
+    coords.push_back(Insert(top_middle_coords[0] + edge_length / 2,
+                            top_middle_coords[1] + edge_length / 2, top_middle_coords[2] - height));
+
+    coords.push_back(
+        Insert(top_middle_coords[0], top_middle_coords[1], top_middle_coords[2] - height));
+
+    /* -------------------------------------------------------------------------- */
+    coords.push_back(top_middle_coords);
+    coords.push_back(Insert(top_middle_coords[0] + edge_length / 2,
+                            top_middle_coords[1] - edge_length / 2, top_middle_coords[2]));
+
+    coords.push_back(Insert(top_middle_coords[0] + edge_length / 2,
+                            top_middle_coords[1] - edge_length / 2, top_middle_coords[2] - height));
+
+    coords.push_back(
+        Insert(top_middle_coords[0], top_middle_coords[1], top_middle_coords[2] - height));
+    /* -------------------------------------------------------------------------- */
+    coords.push_back(top_middle_coords);
+    coords.push_back(Insert(top_middle_coords[0] - edge_length / 2,
+                            top_middle_coords[1] - edge_length / 2, top_middle_coords[2]));
+
+    coords.push_back(Insert(top_middle_coords[0] - edge_length / 2,
+                            top_middle_coords[1] - edge_length / 2, top_middle_coords[2] - height));
+
+    coords.push_back(
+        Insert(top_middle_coords[0], top_middle_coords[1], top_middle_coords[2] - height));
+
+    this->vertex_coords = coords;
+    this->vertex_numb = coords.size();
+    this->edge_length = edge_length;
+    this->height = height;
+}
+
 /**
  * @brief Zapisuje wspolrzedne przeszkody do pliku
  *
@@ -26,7 +84,7 @@ bool CuboidObstacle::WriteWertexToFile() {
 }
 /**
  * @brief Detekcja kolizji drona z inna przeszkoda
- * 
+ *
  * @param drone dron, dla ktorego wykrywana jest kolizja
  * @return true jezeli nastapila kolizja
  * @return false w przeciwnym wypadku

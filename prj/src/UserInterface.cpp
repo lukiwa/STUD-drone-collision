@@ -94,8 +94,23 @@ Scene UserInterface::SceneInit(void) {
     std::vector<std::shared_ptr<Drone>> drones_on_scene;
     std::list<std::shared_ptr<SceneObject>> objects_on_scene;
 
+    /*
+        auto drone1 = make_shared<Drone>(10, 10, 5, 5, Insert(25, 25, 25));
+        drone1->AddMembersFilenames(link, 1);
+        drones_on_scene.push_back(drone1);
+        objects_on_scene.push_front(drone1);
+
+        auto drone2 = make_shared<Drone>(10, 10, 5, 5, Insert(100, 75, 15));
+        drone2->AddMembersFilenames(link, 2);
+        drones_on_scene.push_back(drone2);
+        objects_on_scene.push_front(drone2);
+
+        auto drone3 = make_shared<Drone>(10, 10, 5, 5, Insert(80, 25, 25));
+        drone3->AddMembersFilenames(link, 3);
+        drones_on_scene.push_back(drone3);
+        objects_on_scene.push_front(drone3);
+    */
     /* ----------------------------- SINGLETON TEST ----------------------------- */
-    
     ObjectFactory::Get()->SetDroneParam(10, 10, 5, 5, Insert(25, 25, 25));
     auto drone1 = ObjectFactory::Get()->CreateDrone(link);
     ObjectFactory::Get()->SetDroneFilename(drone1, link);
@@ -116,27 +131,32 @@ Scene UserInterface::SceneInit(void) {
 
     /* --------------------------- DODAWANIE PRZESZKOD -------------------------- */
 
-    auto obst1 = make_shared<CuboidObstacle>();
-    obst1->Init(Insert(50, 50, 50), 10, 50);
-    obst1->AddFilename(link);
-    objects_on_scene.push_back(obst1);
+    ObjectFactory::Get()->SetObstacleParam(50, 10, Insert(50, 50, 50));
+    auto obst_test = ObjectFactory::Get()->CreateObstacle();
+    ObjectFactory::Get()->SetObstacleFilename(obst_test, link);
+    objects_on_scene.push_back(obst_test);
 
-    /* -------------------------------------------------------------------------- */
-    auto obst2 = make_shared<CuboidObstacle>();
-    obst2->Init(Insert(20, 80, 30), 0, 60);
-    obst2->AddFilename(link);
-    objects_on_scene.push_back(obst2);
-    /* -------------------------------------------------------------------------- */
-    auto obst3 = make_shared<CuboidObstacle>();
-    obst3->Init(Insert(75, 75, 25), 15, 50);
-    obst3->AddFilename(link);
-    objects_on_scene.push_back(obst3);
+    /*
+        auto obst1 = make_shared<CuboidObstacle>();
+        obst1->Init(Insert(50, 50, 50), 10, 50);
+        obst1->AddFilename(link);
+        objects_on_scene.push_back(obst1);
 
-    auto obst4 = make_shared<CuboidObstacle>();
-    obst4->Init(Insert(25, 50, 80), 50, 5);
-    obst4->AddFilename(link);
-    objects_on_scene.push_back(obst4);
+        obst2 = make_shared<CuboidObstacle>();
+        obst2->Init(Insert(20, 80, 30), 0, 60);
+        obst2->AddFilename(link);
+        objects_on_scene.push_back(obst2);
 
+        auto obst3 = make_shared<CuboidObstacle>();
+        obst3->Init(Insert(75, 75, 25), 15, 50);
+        obst3->AddFilename(link);
+        objects_on_scene.push_back(obst3);
+
+        auto obst4 = make_shared<CuboidObstacle>();
+        obst4->Init(Insert(25, 50, 80), 50, 5);
+        obst4->AddFilename(link);
+        objects_on_scene.push_back(obst4);
+    */
     Scene scene(link, drones_on_scene, objects_on_scene);
     return scene;
 }
