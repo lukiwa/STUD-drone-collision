@@ -27,12 +27,15 @@ class Drone : public SceneObject {
     /* --------------------------------- METODY --------------------------------- */
     void AddRotationAngle(double rotation_angle);
 
+    void Init(double height, double edge_length, double rotor_edge_length, double rotor_height,
+              const Vector3D& corpus_middle_coords);
+
    protected:
    public:
-    Drone() = delete;
+    Drone() = default;
     Drone(double height, double edge_length, double rotor_edge_length, double rotor_height,
           const Vector3D& corpus_middle_coords);
-    ~Drone() {}
+    ~Drone() = default;
 
     void AddMembersFilenames(PzG::GnuplotLink& link, unsigned int drone_numb);
     bool WriteWertexToFile() override;

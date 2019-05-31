@@ -32,4 +32,5 @@ int main() {
     ui.Init();
     SceneObject::DisplayObjectsNumb();
     Vector3D::DisplayObjectsNumb();
+    ObjectFactory::Get();
 }

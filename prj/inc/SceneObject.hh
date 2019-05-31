@@ -20,7 +20,7 @@ class SceneObject : public Counter<SceneObject> {
     using Counter<SceneObject>::GetCreated;
 
     SceneObject() { filename = "default"; }
-    ~SceneObject() {}  // TODO wirtualny destruktor
+    virtual ~SceneObject() {}  // TODO wirtualny destruktor
     // TODO czy kolizja // TODO konstruktory??
 
     void AddFilename(PzG::GnuplotLink& link);
