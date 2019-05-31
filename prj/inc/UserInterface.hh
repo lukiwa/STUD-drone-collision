@@ -1,5 +1,6 @@
 #pragma once
 
+#include "ObjectFactory.hh"
 #include "Scene.hh"
 #include "SceneObject.hh"
 

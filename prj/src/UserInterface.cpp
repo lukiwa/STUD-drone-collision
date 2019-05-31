@@ -94,20 +94,25 @@ Scene UserInterface::SceneInit(void) {
     std::vector<std::shared_ptr<Drone>> drones_on_scene;
     std::list<std::shared_ptr<SceneObject>> objects_on_scene;
 
-    auto drone1 = make_shared<Drone>(10, 10, 5, 5, Insert(25, 25, 25));
-    drone1->AddMembersFilenames(link, 1);
+    /* ----------------------------- SINGLETON TEST ----------------------------- */
+    
+    ObjectFactory::Get()->SetDroneParam(10, 10, 5, 5, Insert(25, 25, 25));
+    auto drone1 = ObjectFactory::Get()->CreateDrone(link);
+    ObjectFactory::Get()->SetDroneFilename(drone1, link);
     drones_on_scene.push_back(drone1);
-    objects_on_scene.push_front(drone1);
+    objects_on_scene.push_back(drone1);
 
-    auto drone2 = make_shared<Drone>(10, 10, 5, 5, Insert(100, 75, 15));
-    drone2->AddMembersFilenames(link, 2);
+    ObjectFactory::Get()->SetDroneParam(10, 10, 5, 5, Insert(100, 75, 15));
+    auto drone2 = ObjectFactory::Get()->CreateDrone(link);
+    ObjectFactory::Get()->SetDroneFilename(drone2, link);
     drones_on_scene.push_back(drone2);
-    objects_on_scene.push_front(drone2);
+    objects_on_scene.push_back(drone2);
 
-    auto drone3 = make_shared<Drone>(10, 10, 5, 5, Insert(80, 25, 25));
-    drone3->AddMembersFilenames(link, 3);
+    ObjectFactory::Get()->SetDroneParam(10, 10, 5, 5, Insert(80, 25, 25));
+    auto drone3 = ObjectFactory::Get()->CreateDrone(link);
+    ObjectFactory::Get()->SetDroneFilename(drone3, link);
     drones_on_scene.push_back(drone3);
-    objects_on_scene.push_front(drone3);
+    objects_on_scene.push_back(drone3);
 
     /* --------------------------- DODAWANIE PRZESZKOD -------------------------- */
 
