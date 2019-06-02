@@ -112,19 +112,19 @@ Scene UserInterface::SceneInit(void) {
     */
     /* ----------------------------- SINGLETON TEST ----------------------------- */
     ObjectFactory::Get()->SetDroneParam(10, 10, 5, 5, Insert(25, 25, 25));
-    auto drone1 = ObjectFactory::Get()->CreateDrone(link);
+    auto drone1 = ObjectFactory::Get()->CreateDrone();
     ObjectFactory::Get()->SetDroneFilename(drone1, link);
     drones_on_scene.push_back(drone1);
     objects_on_scene.push_back(drone1);
 
     ObjectFactory::Get()->SetDroneParam(10, 10, 5, 5, Insert(100, 75, 15));
-    auto drone2 = ObjectFactory::Get()->CreateDrone(link);
+    auto drone2 = ObjectFactory::Get()->CreateDrone();
     ObjectFactory::Get()->SetDroneFilename(drone2, link);
     drones_on_scene.push_back(drone2);
     objects_on_scene.push_back(drone2);
 
     ObjectFactory::Get()->SetDroneParam(10, 10, 5, 5, Insert(80, 25, 25));
-    auto drone3 = ObjectFactory::Get()->CreateDrone(link);
+    auto drone3 = ObjectFactory::Get()->CreateDrone();
     ObjectFactory::Get()->SetDroneFilename(drone3, link);
     drones_on_scene.push_back(drone3);
     objects_on_scene.push_back(drone3);
