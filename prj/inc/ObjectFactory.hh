@@ -20,25 +20,22 @@ class ObjectFactory : public DroneParameters, public ObstacleParameters {
 
    public:
     ~ObjectFactory() = default;
-    /**
-     * @brief Dostep do singletonu fabryki obiektow
-     *
-     *
-     * @return ObjectFactory* wskaznik na instancje fabryki obiektow
-     */
+
     static ObjectFactory* Get();
 
     /* -------------------------------- DLA DRONA ------------------------------- */
     std::shared_ptr<Drone> CreateDrone() override;
-    void SetDroneParam(double height, double edge_length, double rotor_edge_length, double rotor_height,
-                       const Vector3D& corpus_middle_coords) override;
+    void SetDroneParam(double height, double edge_length, double rotor_edge_length,
+                       double rotor_height, const Vector3D& corpus_middle_coords) override;
     // TODO
     void DeleteDrone(std::shared_ptr<Drone> drone) override;
     void SetDroneFilename(std::shared_ptr<Drone> drone, PzG::GnuplotLink& link) override;
     /* ----------------------------- DLA PRZESZKODY ----------------------------- */
 
     std::shared_ptr<CuboidObstacle> CreateObstacle() override;
-    void SetObstacleParam(double height, double edge_length, const Vector3D& middle_coords) override;
+    void SetObstacleParam(double height, double edge_length,
+                          const Vector3D& middle_coords) override;
     void DeleteObstacle(std::shared_ptr<CuboidObstacle> obstacle) override;
-    void SetObstacleFilename(std::shared_ptr<CuboidObstacle> obstacle, PzG::GnuplotLink& link) override;
+    void SetObstacleFilename(std::shared_ptr<CuboidObstacle> obstacle,
+                             PzG::GnuplotLink& link) override;
 };
