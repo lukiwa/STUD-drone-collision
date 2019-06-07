@@ -8,9 +8,12 @@
  * @param rotor_edge_length dlugosc boku rotora
  * @param rotor_height wysokosc rotora
  * @param corpus_middle_coords punkt srodkowy korpusu
+ * @param link lacze do gnuplota
+ * @param drone_numb numer drona
  */
+
 Drone::Drone(double height, double edge_length, double rotor_edge_length, double rotor_height,
-             const Vector3D& corpus_middle_coords)
+             const Vector3D& corpus_middle_coords, PzG::GnuplotLink link, unsigned int drone_numb)
     : corpus_height(height),
       corpus_edge_length(edge_length),
       rotor_height(rotor_height),
@@ -26,6 +29,8 @@ Drone::Drone(double height, double edge_length, double rotor_edge_length, double
     rotor[1].Init(corpus[5], rotor_edge_length, rotor_height);
     rotor[2].Init(corpus[9], rotor_edge_length, rotor_height);
     rotor[3].Init(corpus[13], rotor_edge_length, rotor_height);
+
+    AddMembersFilenames(link, drone_numb);
 }
 
 /**
@@ -163,8 +168,7 @@ void Drone::AddMembersFilenames(PzG::GnuplotLink& link, unsigned int drone_numb)
     /* -------------------------------------------------------------------------- */
     std::string rotor_filename;
     for (int i = 0; i < ROTOR_NUMB; ++i) {
-        rotor_filename =
-            "dat/drone/rotor/rotor" + std::to_string(drone_numb) + std::to_string(i) + ".dat";
+        rotor_filename = "dat/drone/rotor/rotor" + std::to_string(drone_numb) + std::to_string(i) + ".dat";
         rotor[i].AddFilename(rotor_filename);
         link.AddFilename(rotor_filename.c_str());
     }
@@ -178,8 +182,7 @@ void Drone::AddMembersFilenames(PzG::GnuplotLink& link, unsigned int drone_numb)
  */
 bool Drone::IsCollisionDetected(std::shared_ptr<Drone> drone) const {
     double distance_between_middles =
-        (this->drone_middle_coords.CalculateNewVector(drone->GetDroneMiddle()))
-            .CalculateVectorLength();
+        (this->drone_middle_coords.CalculateNewVector(drone->GetDroneMiddle())).CalculateVectorLength();
     if (distance_between_middles < (this->GetDroneHeight() / 2) + (drone->GetDroneHeight() / 2)) {
         return true;
     }

@@ -34,9 +34,23 @@ void UserInterface::UIManager(Scene& scene) {
             case MenuDisplay:
                 DisplayMenu();
                 break;
+
             case SwtichDrone:
                 RealiseDroneSwitch(scene);
                 break;
+
+            case AddDrone:
+                RealiseDroneAdding(scene);
+                break;
+
+            case AddObstacle:
+                RealiseObstacleAdding(scene);
+                break;
+
+            case RemoveDrone:
+                // TODO
+                break;
+
             case End:
                 cout << endl << "Koniec dzialania programu" << endl << endl;
                 break;
@@ -74,6 +88,16 @@ UserInterface::Choice UserInterface::GetChoice(void) const {
             break;
         case 's':
             return SwtichDrone;
+            break;
+        case 'D':
+            return AddDrone;
+            break;
+        case 'P':
+            return AddObstacle;
+            break;
+
+        case 'U':
+            return RemoveDrone;
             break;
         default:
             cin.ignore(100, '\n');
@@ -113,19 +137,16 @@ Scene UserInterface::SceneInit(void) {
     /* ----------------------------- SINGLETON TEST ----------------------------- */
     ObjectFactory::Get()->SetDroneParam(10, 10, 5, 5, Insert(25, 25, 25));
     auto drone1 = ObjectFactory::Get()->CreateDrone();
-    ObjectFactory::Get()->SetDroneFilename(drone1, link);
     drones_on_scene.push_back(drone1);
     objects_on_scene.push_back(drone1);
 
     ObjectFactory::Get()->SetDroneParam(10, 10, 5, 5, Insert(100, 75, 15));
     auto drone2 = ObjectFactory::Get()->CreateDrone();
-    ObjectFactory::Get()->SetDroneFilename(drone2, link);
     drones_on_scene.push_back(drone2);
     objects_on_scene.push_back(drone2);
 
-    ObjectFactory::Get()->SetDroneParam(10, 10, 5, 5, Insert(80, 25, 25));
+    ObjectFactory::Get()->SetDroneMiddle(Insert(80, 25, 25));
     auto drone3 = ObjectFactory::Get()->CreateDrone();
-    ObjectFactory::Get()->SetDroneFilename(drone3, link);
     drones_on_scene.push_back(drone3);
     objects_on_scene.push_back(drone3);
 
@@ -133,7 +154,6 @@ Scene UserInterface::SceneInit(void) {
 
     ObjectFactory::Get()->SetObstacleParam(50, 10, Insert(50, 50, 50));
     auto obst_test = ObjectFactory::Get()->CreateObstacle();
-    ObjectFactory::Get()->SetObstacleFilename(obst_test, link);
     objects_on_scene.push_back(obst_test);
 
     /*
@@ -234,9 +254,51 @@ void UserInterface::GetDroneNumb(unsigned int& out_drone_numb) {
  */
 void UserInterface::DisplayMenu(void) const {
     cout << endl;
+
+    cout << "D - dodaj drona" << endl;
+    cout << "P - dodaj przeszkode" << endl;
+    cout << "U - usun wyselekcjonowanego drona" << endl;
     cout << "o - obrot drona" << endl;
     cout << "j - lot na wprost" << endl;
     cout << "w - wyswietl ponownie menu" << endl;
     cout << "s - zmiana aktywnego drona" << endl;
     cout << "k - koniec dzialania programu" << endl;
 }
+
+/** //TODO rozdziel na 2 funkcje
+ * @brief
+ *
+ * @param scene
+ */
+void UserInterface::RealiseDroneAdding(Scene& scene) {
+    Vector3D middle_coords;
+    cout << "Podaj docelowe wspolrzedne drona: x y z: ";
+    cin >> middle_coords;
+    ObjectFactory::Get()->SetDroneMiddle(middle_coords);
+    scene.AddDroneToList(ObjectFactory::Get()->CreateDrone());
+}
+/** //TODO rozdziel na 2 funkcje
+ * @brief
+ *
+ * @param scene
+ */
+void UserInterface::RealiseObstacleAdding(Scene& scene) {
+    Vector3D middle_coords;
+    double height;
+    double edge_length;
+
+    cout << "Podaj docelowe wspolrzedne srodka przeszkody: x y z: ";
+    cin >> middle_coords;
+    cout << endl << "Podaj wymiary przeszkody(dlugosc podstawy i wysokosc): ";
+    cin >> edge_length;
+    cin >> height;
+
+    ObjectFactory::Get()->SetObstacleParam(height, edge_length, middle_coords);
+    scene.AddObstacleToList(ObjectFactory::Get()->CreateObstacle());
+}
+/**
+ * @brief
+ *
+ * @param scene
+ */
+void UserInterface::RealiseDroneRemoval(Scene& scene) {}

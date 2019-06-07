@@ -30,7 +30,9 @@ int main() {
 
     UserInterface ui;
     ui.Init();
-    SceneObject::DisplayObjectsNumb();
-    Vector3D::DisplayObjectsNumb();
+    atexit(SceneObject::DisplayObjectsNumb);
+    atexit(Vector3D::DisplayObjectsNumb);
+    // SceneObject::DisplayObjectsNumb();
+    // Vector3D::DisplayObjectsNumb();
     ObjectFactory::Get();
 }

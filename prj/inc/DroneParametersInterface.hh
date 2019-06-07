@@ -38,13 +38,13 @@ class DroneCreationInterface {
      * @param drone wskaznik na dron do usuniecia
      */
     virtual void DeleteDrone(std::shared_ptr<Drone> drone) = 0;
+
     /**
-     * @brief Ustawia nazwe pliku do zapisu drona i dodaje ta nazwe do lacza do GnuPlota
+     * @brief Ustala srodek drona nie modyfikujac jego wymiarow
      *
-     * @param drone dron ktorego nazwa ma zostac zapisana
-     * @param link lacze do gnuplota
+     * @param corpus_middle_coords wspolrzedne srodka
      */
-    virtual void SetDroneFilename(std::shared_ptr<Drone> drone, PzG::GnuplotLink& link) = 0;
+    virtual void SetDroneMiddle(const Vector3D& corpus_middle_coords) = 0;
 };
 
 /**

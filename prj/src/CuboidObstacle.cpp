@@ -1,60 +1,17 @@
 #include "CuboidObstacle.hh"
 
-CuboidObstacle::CuboidObstacle(const Vector3D& middle_coords, double edge_length, double height) {
-    build_point = middle_coords;
-    std::vector<Vector3D> coords;                // wspolrzedne wierzcholkow
-    Vector3D top_middle_coords = middle_coords;  // gorny punkt na srodku prostpadloscianu
-    // Rozpoczynam wpisywanie od gornego srodkowego punktu
-    top_middle_coords[2] = middle_coords[2] + height / 2;
-
-    /* -------------------------------------------------------------------------- */
-    coords.push_back(top_middle_coords);
-
-    coords.push_back(Insert(top_middle_coords[0] - edge_length / 2,
-                            top_middle_coords[1] + edge_length / 2, top_middle_coords[2]));
-
-    coords.push_back(Insert(top_middle_coords[0] - edge_length / 2,
-                            top_middle_coords[1] + edge_length / 2, top_middle_coords[2] - height));
-
-    coords.push_back(
-        Insert(top_middle_coords[0], top_middle_coords[1], top_middle_coords[2] - height));
-
-    /* -------------------------------------------------------------------------- */
-    coords.push_back(top_middle_coords);
-    coords.push_back(Insert(top_middle_coords[0] + edge_length / 2,
-                            top_middle_coords[1] + edge_length / 2, top_middle_coords[2]));
-
-    coords.push_back(Insert(top_middle_coords[0] + edge_length / 2,
-                            top_middle_coords[1] + edge_length / 2, top_middle_coords[2] - height));
-
-    coords.push_back(
-        Insert(top_middle_coords[0], top_middle_coords[1], top_middle_coords[2] - height));
-
-    /* -------------------------------------------------------------------------- */
-    coords.push_back(top_middle_coords);
-    coords.push_back(Insert(top_middle_coords[0] + edge_length / 2,
-                            top_middle_coords[1] - edge_length / 2, top_middle_coords[2]));
-
-    coords.push_back(Insert(top_middle_coords[0] + edge_length / 2,
-                            top_middle_coords[1] - edge_length / 2, top_middle_coords[2] - height));
-
-    coords.push_back(
-        Insert(top_middle_coords[0], top_middle_coords[1], top_middle_coords[2] - height));
-    /* -------------------------------------------------------------------------- */
-    coords.push_back(top_middle_coords);
-    coords.push_back(Insert(top_middle_coords[0] - edge_length / 2,
-                            top_middle_coords[1] - edge_length / 2, top_middle_coords[2]));
-
-    coords.push_back(Insert(top_middle_coords[0] - edge_length / 2,
-                            top_middle_coords[1] - edge_length / 2, top_middle_coords[2] - height));
-
-    coords.push_back(
-        Insert(top_middle_coords[0], top_middle_coords[1], top_middle_coords[2] - height));
-
-    this->vertex_coords = coords;
-    this->vertex_numb = coords.size();
-    this->edge_length = edge_length;
-    this->height = height;
+/**
+ * @brief Construct a new Cuboid Obstacle:: Cuboid Obstacle object
+ *
+ * @param middle_coords punkt srodkowy przeszkody
+ * @param edge_length dlugosc boku przeszkody
+ * @param height wysokosc przeszody
+ * @param link lacze do gnuplota
+ */
+CuboidObstacle::CuboidObstacle(const Vector3D& middle_coords, double edge_length, double height,
+                               PzG::GnuplotLink link) {
+    Init(middle_coords, edge_length, height);
+    AddFilename(link);
 }
 
 /**
@@ -100,11 +57,9 @@ bool CuboidObstacle::IsCollisionDetected(
     // dla x
     if (drone_middle[0] >= bottom_obstacle_coords[0] && drone_middle[0] <= top_obstacle_coords[0]) {
         // dla y
-        if (drone_middle[1] >= bottom_obstacle_coords[1] &&
-            drone_middle[1] <= top_obstacle_coords[1]) {
+        if (drone_middle[1] >= bottom_obstacle_coords[1] && drone_middle[1] <= top_obstacle_coords[1]) {
             // dla z
-            if (drone_middle[2] >= bottom_obstacle_coords[2] &&
-                drone_middle[2] <= top_obstacle_coords[2]) {
+            if (drone_middle[2] >= bottom_obstacle_coords[2] && drone_middle[2] <= top_obstacle_coords[2]) {
                 return true;
             }
         }

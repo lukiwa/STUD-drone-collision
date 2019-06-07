@@ -37,10 +37,12 @@ class Scene {
     void Move(double distance, double tilt_angle);
     void Rotate(double rotation_angle);
 
-    void AnimateMove(double distance, double tilt_angle, double rotors_speed = 5,
-                     unsigned int refresh_rate = 10);
-    void AnimateRotation(double rotation_angle, double rotors_speed = 5,
-                         unsigned int refresh_rate = 10);
+    void AnimateMove(double distance, double tilt_angle, double rotors_speed = 5, unsigned int refresh_rate = 10);
+    void AnimateRotation(double rotation_angle, double rotors_speed = 5, unsigned int refresh_rate = 10);
+
+    void AddDroneToList(std::shared_ptr<Drone> drone);
+    void AddObstacleToList(std::shared_ptr<SceneObject> obstacle);
+
     /* -------------------------------------------------------------------------- */
 
     void WriteVertexToFile();

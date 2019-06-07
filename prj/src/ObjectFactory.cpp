@@ -2,6 +2,7 @@
 
 int ObjectFactory::created_drone_numb = 0;
 int ObjectFactory::created_obstacle_numb = 0;
+PzG::GnuplotLink ObjectFactory::link;
 
 /**
  * @brief Dostep do instancji fabryki obiektow
@@ -34,7 +35,7 @@ std::shared_ptr<Drone> ObjectFactory::CreateDrone() {
     ++created_drone_numb;
     return std::make_shared<Drone>(DroneParameters::height, DroneParameters::edge_length,
                                    DroneParameters::rotor_edge_length, DroneParameters::rotor_height,
-                                   DroneParameters::corpus_middle_coords);
+                                   DroneParameters::corpus_middle_coords, link, created_drone_numb);
 }
 
 /**FIXME
@@ -42,14 +43,6 @@ std::shared_ptr<Drone> ObjectFactory::CreateDrone() {
  *
  */
 void ObjectFactory::DeleteDrone(std::shared_ptr<Drone> drone) {}
-
-/**
- * @brief Ustawia nazwe drona (patrz klase DroneCreationInterface )
- *
- */
-void ObjectFactory::SetDroneFilename(std::shared_ptr<Drone> drone, PzG::GnuplotLink& link) {
-    drone->AddMembersFilenames(link, created_drone_numb);
-}
 
 /* -------------------------------------------------------------------------- */
 /**
@@ -59,7 +52,7 @@ void ObjectFactory::SetDroneFilename(std::shared_ptr<Drone> drone, PzG::GnuplotL
 std::shared_ptr<CuboidObstacle> ObjectFactory::CreateObstacle() {
     ++created_obstacle_numb;
     return std::make_shared<CuboidObstacle>(ObstacleParameters::middle_coords, ObstacleParameters::edge_length,
-                                            ObstacleParameters::height);
+                                            ObstacleParameters::height, link);
 }
 
 /**
@@ -78,9 +71,10 @@ void ObjectFactory::SetObstacleParam(double height, double edge_length, const Ve
 void ObjectFactory::DeleteObstacle(std::shared_ptr<CuboidObstacle> obstacle) {}
 
 /**
- * @brief Ustawia nazwe przeszkody(patrz klase ObstacleCreationInterface )
+ * @brief Ustala srodek drona
  *
+ * @param corpus_middle_coords wspolrzedne srodka
  */
-void ObjectFactory::SetObstacleFilename(std::shared_ptr<CuboidObstacle> obstacle, PzG::GnuplotLink& link) {
-    obstacle->AddFilename(link);
+void ObjectFactory::SetDroneMiddle(const Vector3D& corpus_middle_coords) {
+    DroneParameters::corpus_middle_coords = corpus_middle_coords;
 }

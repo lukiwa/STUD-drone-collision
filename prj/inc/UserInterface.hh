@@ -11,7 +11,7 @@
  *
  */
 class UserInterface {
-    enum Choice { Rotate, Move, MenuDisplay, SwtichDrone, End, Unrecognised };
+    enum Choice { Rotate, Move, MenuDisplay, SwtichDrone, End, Unrecognised, AddDrone, AddObstacle, RemoveDrone };
     /* -------------------------------------------------------------------------- */
     void UIManager(Scene& scene);
     Choice GetChoice(void) const;
@@ -23,6 +23,12 @@ class UserInterface {
     void RealiseRotation(Scene& scene);
     void GetRotationInfo(double& out_angle);
     void RealiseMove(Scene& scene);
+
+    void RealiseDroneAdding(Scene& scene);
+    void RealiseObstacleAdding(Scene& scene);
+    void RealiseDroneRemoval(Scene& scene);
+
+
     void GetMoveInfo(double& out_tilt_angle, double& out_distance);
     void RealiseDroneSwitch(Scene& scene);
     void GetDroneNumb(unsigned int& out_drone_numb);

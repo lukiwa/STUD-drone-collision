@@ -35,13 +35,7 @@ class ObstacleCreationInterface {
      */
     virtual void DeleteObstacle(std::shared_ptr<CuboidObstacle> obstacle) = 0;
 
-    /**
-     * @brief Ustawia nazwe pliku do zapisu przeszkody i dodaje ta nazwe do lacza do gnuplota
-     *
-     * @param obstacle wskaznik na przeszkode
-     * @param link lacze do gnuplota
-     */
-    virtual void SetObstacleFilename(std::shared_ptr<CuboidObstacle> obstacle, PzG::GnuplotLink& link) = 0;
+   
 };
 
 /**

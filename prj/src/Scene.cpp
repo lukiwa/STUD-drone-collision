@@ -1,7 +1,6 @@
 #include "Scene.hh"
 
-Scene::Scene(PzG::GnuplotLink& gnuplot_link,
-             const std::vector<std::shared_ptr<Drone>> drones_on_scene,
+Scene::Scene(PzG::GnuplotLink& gnuplot_link, const std::vector<std::shared_ptr<Drone>> drones_on_scene,
              const std::list<std::shared_ptr<SceneObject>> objects_on_scene)
     : scene_objects(objects_on_scene), drones(drones_on_scene), link(gnuplot_link) {
     active_drone = drones_on_scene.front();
@@ -68,8 +67,7 @@ void Scene::Move(double distance, double tilt_angle) {
  *        NOTE: Im mniejsza wartosc tym czesciej zapisywane sa wierzcholki - ruch jest szybszy
  *              Im wieksza wartosc tym rzadziej, ruch wolniejszy ale moga znikac krawedzie!
  */
-void Scene::AnimateMove(double distance, double tilt_angle, double rotors_speed,
-                        unsigned int refresh_rate) {
+void Scene::AnimateMove(double distance, double tilt_angle, double rotors_speed, unsigned int refresh_rate) {
     assert(distance >= 0);
     if (tilt_angle == 0) {
         // ruch tylko w pionie
@@ -207,7 +205,7 @@ void Scene::DisplayDrone() {
     link.Draw();
 }
 
-/** FIXME zapisuje wspolrzedne calej sceny!
+/** NOTE  zapisuje wspolrzedne calej sceny!
  * @brief Wyswietla rotory drona na scenie
  *
  */
@@ -216,7 +214,24 @@ void Scene::DisplayRotors() {
     link.Draw();
 }
 
+/**
+ * @brief Przelacza aktualnie uzywangeo drona
+ *
+ * @param drone_numb numer drona ktory ma byc teraz sterowany
+ */
 void Scene::SwitchActiveDrone(unsigned int drone_numb) {
     assert(drone_numb <= drones.size());
     active_drone = this->drones[drone_numb];
+}
+
+void Scene::AddDroneToList(std::shared_ptr<Drone> drone) {
+    scene_objects.push_back(drone);
+    drones.push_back(drone);
+    WriteVertexToFile();
+    link.Draw();
+}
+void Scene::AddObstacleToList(std::shared_ptr<SceneObject> obstacle) {
+    scene_objects.push_back(obstacle);
+    WriteVertexToFile();
+    link.Draw();
 }

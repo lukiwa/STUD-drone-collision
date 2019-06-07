@@ -19,7 +19,7 @@ class CuboidObstacle : public Obstacle, public Cuboid {
    public:
     // TODO usuniecie mozliwosci konstruowania poza singletonem
     CuboidObstacle() : Obstacle() {}
-    CuboidObstacle(const Vector3D& middle_coords, double edge_length, double height);
+    CuboidObstacle(const Vector3D& middle_coords, double edge_length, double height, PzG::GnuplotLink link);
     ~CuboidObstacle() {}
 
     bool WriteWertexToFile() override;

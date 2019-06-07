@@ -7,7 +7,7 @@ INCLUDE	:= inc
 LIB		:= lib
 
 LIBRARIES	:=
-EXECUTABLE	:= drone_steering.out
+EXECUTABLE	:= drone_collision.out
 
 
 all: $(BIN)/$(EXECUTABLE)
