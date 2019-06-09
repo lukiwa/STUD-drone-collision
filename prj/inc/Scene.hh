@@ -42,6 +42,9 @@ class Scene {
 
     void AddDroneToList(std::shared_ptr<Drone> drone);
     void AddObstacleToList(std::shared_ptr<SceneObject> obstacle);
+    
+    //FIXME dron nadal sie rysuje!
+    void DeleteDrone(unsigned int drone_numb);
 
     /* -------------------------------------------------------------------------- */
 

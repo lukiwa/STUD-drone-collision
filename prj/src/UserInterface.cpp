@@ -48,7 +48,7 @@ void UserInterface::UIManager(Scene& scene) {
                 break;
 
             case RemoveDrone:
-                // TODO
+                RealiseDroneRemoval(scene);
                 break;
 
             case End:
@@ -155,6 +155,8 @@ Scene UserInterface::SceneInit(void) {
     ObjectFactory::Get()->SetObstacleParam(50, 10, Insert(50, 50, 50));
     auto obst_test = ObjectFactory::Get()->CreateObstacle();
     objects_on_scene.push_back(obst_test);
+
+    
 
     /*
         auto obst1 = make_shared<CuboidObstacle>();
@@ -266,9 +268,9 @@ void UserInterface::DisplayMenu(void) const {
 }
 
 /** //TODO rozdziel na 2 funkcje
- * @brief
+ * @brief Realizuje dodawanie drona
  *
- * @param scene
+ * @param scene scena na ktorej sa drony
  */
 void UserInterface::RealiseDroneAdding(Scene& scene) {
     Vector3D middle_coords;
@@ -278,9 +280,9 @@ void UserInterface::RealiseDroneAdding(Scene& scene) {
     scene.AddDroneToList(ObjectFactory::Get()->CreateDrone());
 }
 /** //TODO rozdziel na 2 funkcje
- * @brief
+ * @brief realizacja dodawnaia przeszkody
  *
- * @param scene
+ * @param scene scena na ktorej sa drony
  */
 void UserInterface::RealiseObstacleAdding(Scene& scene) {
     Vector3D middle_coords;
@@ -296,9 +298,14 @@ void UserInterface::RealiseObstacleAdding(Scene& scene) {
     ObjectFactory::Get()->SetObstacleParam(height, edge_length, middle_coords);
     scene.AddObstacleToList(ObjectFactory::Get()->CreateObstacle());
 }
-/**
- * @brief
+/** //TODO rodziel na 2 funkcje
+ * @brief realizacja usuniecia drona
  *
- * @param scene
+ * @param scene scene na ktorej znajduje sie dron
  */
-void UserInterface::RealiseDroneRemoval(Scene& scene) {}
+void UserInterface::RealiseDroneRemoval(Scene& scene) {
+    std::cout << "Podaj nr drona do usuniecia: ";
+    unsigned int drone_numb;
+    cin >> drone_numb;
+    scene.DeleteDrone(drone_numb);
+}

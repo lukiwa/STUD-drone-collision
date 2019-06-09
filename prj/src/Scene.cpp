@@ -224,14 +224,44 @@ void Scene::SwitchActiveDrone(unsigned int drone_numb) {
     active_drone = this->drones[drone_numb];
 }
 
+/**
+ * @brief Dodaje drona do listy obketow sceny i wektora dronow
+ *
+ * @param drone dron ktory ma byc dodany
+ */
 void Scene::AddDroneToList(std::shared_ptr<Drone> drone) {
     scene_objects.push_back(drone);
     drones.push_back(drone);
     WriteVertexToFile();
     link.Draw();
 }
+
+/**
+ * @brief Dodaje przeszkode do listy obketow
+ *
+ * @param obstacle przeszkoda ktora ma zostac dodana
+ */
 void Scene::AddObstacleToList(std::shared_ptr<SceneObject> obstacle) {
     scene_objects.push_back(obstacle);
     WriteVertexToFile();
     link.Draw();
+}
+
+/**
+ * @brief Usuwa wybranego drona z listy
+ * 
+ * @param drone_numb 
+ */
+void Scene::DeleteDrone(unsigned int drone_numb) {
+    auto postion = drones.begin() + drone_numb;
+
+    if (drones.size() >= 2) {
+        if (*(drones.begin() + drone_numb) != active_drone) {
+            drones.erase(postion);
+        } else {
+            std::cerr << "Nie mozna usunac aktywnego drona!" << std::endl;
+        }
+    } else {
+        std::cerr << "Zbyt malo dronow do usuniecia!" << std::endl;
+    }
 }
