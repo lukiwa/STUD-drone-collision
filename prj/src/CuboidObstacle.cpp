@@ -9,8 +9,8 @@
  * @param link lacze do gnuplota
  */
 CuboidObstacle::CuboidObstacle(const Vector3D& middle_coords, double edge_length, double height,
-                               PzG::GnuplotLink link) {
-    Init(middle_coords, edge_length, height);
+                               PzG::GnuplotLink link, const Vector3D& orientation) {
+    Init(middle_coords, edge_length, height, orientation);
     AddFilename(link);
 }
 
@@ -57,9 +57,11 @@ bool CuboidObstacle::IsCollisionDetected(
     // dla x
     if (drone_middle[0] >= bottom_obstacle_coords[0] && drone_middle[0] <= top_obstacle_coords[0]) {
         // dla y
-        if (drone_middle[1] >= bottom_obstacle_coords[1] && drone_middle[1] <= top_obstacle_coords[1]) {
+        if (drone_middle[1] >= bottom_obstacle_coords[1] &&
+            drone_middle[1] <= top_obstacle_coords[1]) {
             // dla z
-            if (drone_middle[2] >= bottom_obstacle_coords[2] && drone_middle[2] <= top_obstacle_coords[2]) {
+            if (drone_middle[2] >= bottom_obstacle_coords[2] &&
+                drone_middle[2] <= top_obstacle_coords[2]) {
                 return true;
             }
         }

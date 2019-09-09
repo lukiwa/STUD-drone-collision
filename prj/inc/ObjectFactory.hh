@@ -5,6 +5,8 @@
 #include "ObstacleParametersInterface.hh"
 #include "SceneObject.hh"
 
+
+//FIXME powinno zwracac obiekty sceny!!
 /**
  * @brief Singleton fabryki obiektow, umozliwa tworzenie
  *        odpowiednio zainicializowanych obiektow sceny
@@ -26,8 +28,8 @@ class ObjectFactory : public DroneParameters, public ObstacleParameters {
 
     /* -------------------------------- DLA DRONA ------------------------------- */
     std::shared_ptr<Drone> CreateDrone() override;
-    void SetDroneParam(double height, double edge_length, double rotor_edge_length, double rotor_height,
-                       const Vector3D& corpus_middle_coords) override;
+    void SetDroneParam(double height, double edge_length, double rotor_edge_length,
+                       double rotor_height, const Vector3D& corpus_middle_coords) override;
     void SetDroneMiddle(const Vector3D& corpus_middle_coords) override;
 
     // TODO
@@ -35,6 +37,10 @@ class ObjectFactory : public DroneParameters, public ObstacleParameters {
     /* ----------------------------- DLA PRZESZKODY ----------------------------- */
 
     std::shared_ptr<CuboidObstacle> CreateObstacle() override;
-    void SetObstacleParam(double height, double edge_length, const Vector3D& middle_coords) override;
+    void SetObstacleParam(double height, double edge_length,
+                          const Vector3D& middle_coords) override;
     void DeleteObstacle(std::shared_ptr<CuboidObstacle> obstacle) override;
+    /* -------------------------------------------------------------------------- */
+
+    std::shared_ptr<CuboidObstacle> CreateWall();
 };

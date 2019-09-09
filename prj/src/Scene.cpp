@@ -1,6 +1,7 @@
 #include "Scene.hh"
 
-Scene::Scene(PzG::GnuplotLink& gnuplot_link, const std::vector<std::shared_ptr<Drone>> drones_on_scene,
+Scene::Scene(PzG::GnuplotLink& gnuplot_link,
+             const std::vector<std::shared_ptr<Drone>> drones_on_scene,
              const std::list<std::shared_ptr<SceneObject>> objects_on_scene)
     : scene_objects(objects_on_scene), drones(drones_on_scene), link(gnuplot_link) {
     active_drone = drones_on_scene.front();
@@ -67,7 +68,8 @@ void Scene::Move(double distance, double tilt_angle) {
  *        NOTE: Im mniejsza wartosc tym czesciej zapisywane sa wierzcholki - ruch jest szybszy
  *              Im wieksza wartosc tym rzadziej, ruch wolniejszy ale moga znikac krawedzie!
  */
-void Scene::AnimateMove(double distance, double tilt_angle, double rotors_speed, unsigned int refresh_rate) {
+void Scene::AnimateMove(double distance, double tilt_angle, double rotors_speed,
+                        unsigned int refresh_rate) {
     assert(distance >= 0);
     if (tilt_angle == 0) {
         // ruch tylko w pionie
@@ -249,15 +251,18 @@ void Scene::AddObstacleToList(std::shared_ptr<SceneObject> obstacle) {
 
 /**
  * @brief Usuwa wybranego drona z listy
- * 
- * @param drone_numb 
+ *
+ * @param drone_numb
  */
 void Scene::DeleteDrone(unsigned int drone_numb) {
     auto postion = drones.begin() + drone_numb;
 
+    // TODO albo postion albo donre numb
     if (drones.size() >= 2) {
         if (*(drones.begin() + drone_numb) != active_drone) {
+            drones.at(drone_numb)->Zero();
             drones.erase(postion);
+            WriteVertexToFile();
         } else {
             std::cerr << "Nie mozna usunac aktywnego drona!" << std::endl;
         }

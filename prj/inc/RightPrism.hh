@@ -44,4 +44,13 @@ class RightPrism : public GeometricObject<3> {
                       Vector3D orientation = Insert(0, 0, 0)) = 0;
 
     std::ostream &WriteVertexAs4(std::ostream &stream) const;
+
+    // TODO
+    void Zero() {
+        for (int i = 0; i < vertex_coords.size(); ++i) {
+            for (int j = 0; j < 3; ++j) {
+                vertex_coords[i][j] = 0;
+            }
+        }
+    }
 };

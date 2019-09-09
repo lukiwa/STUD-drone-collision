@@ -49,7 +49,7 @@ class DroneRotor : public RegularHex {
      * @brief Rotacja rotora wokol osi OZ w stosunku do punktu mocowania
      *
      * @param mounting_point punkt mocowania, srodek dolnej podstawy
-     * @param rotation_angle kat obrotu 
+     * @param rotation_angle kat obrotu
      */
     void Rotate(const Vector3D& mounting_point, double rotation_angle) {
         Vector3D points_to_fix[2];
@@ -60,4 +60,6 @@ class DroneRotor : public RegularHex {
         Vector3D fix_vector = points_to_fix[1].CalculateNewVector(points_to_fix[0]);
         MoveByVector(fix_vector);
     }
+
+    
 };

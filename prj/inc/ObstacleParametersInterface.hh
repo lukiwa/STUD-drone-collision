@@ -26,7 +26,8 @@ class ObstacleCreationInterface {
      * @param edge_length dlugosc boku podstawy
      * @param middle_coords punkt srodkowy
      */
-    virtual void SetObstacleParam(double height, double edge_length, const Vector3D& middle_coords) = 0;
+    virtual void SetObstacleParam(double height, double edge_length,
+                                  const Vector3D& middle_coords) = 0;
 
     /** FIXME
      * @brief Usuwa zadana przeszkdoe
@@ -34,8 +35,6 @@ class ObstacleCreationInterface {
      * @param wskaznik do przeszkody ktora ma byc usunieta
      */
     virtual void DeleteObstacle(std::shared_ptr<CuboidObstacle> obstacle) = 0;
-
-   
 };
 
 /**
@@ -43,7 +42,7 @@ class ObstacleCreationInterface {
  *
  */
 struct ObstacleParameters : public ObstacleCreationInterface {
-    Vector3D middle_coords;
-    double edge_length;
-    double height;
+    Vector3D middle_coords = Insert(25, 25, 25);
+    double edge_length = 30;
+    double height = 5;
 };

@@ -156,7 +156,8 @@ Scene UserInterface::SceneInit(void) {
     auto obst_test = ObjectFactory::Get()->CreateObstacle();
     objects_on_scene.push_back(obst_test);
 
-    
+    auto obst_wall = ObjectFactory::Get()->CreateWall();
+    objects_on_scene.push_back(obst_wall);
 
     /*
         auto obst1 = make_shared<CuboidObstacle>();

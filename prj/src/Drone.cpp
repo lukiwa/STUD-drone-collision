@@ -19,7 +19,10 @@ Drone::Drone(double height, double edge_length, double rotor_edge_length, double
       rotor_height(rotor_height),
       rotor_edge_length(rotor_edge_length),
       corpus_middle_coords(corpus_middle_coords),
-      Zrotation(0) {
+      Zrotation(0),
+      drone_numb(drone_numb)
+
+{
     /* ----------------------- Inicializacja srodka drona ----------------------- */
     drone_middle_coords = corpus_middle_coords;
     drone_middle_coords[2] = drone_middle_coords[2] + rotor_height / 2;
@@ -168,7 +171,8 @@ void Drone::AddMembersFilenames(PzG::GnuplotLink& link, unsigned int drone_numb)
     /* -------------------------------------------------------------------------- */
     std::string rotor_filename;
     for (int i = 0; i < ROTOR_NUMB; ++i) {
-        rotor_filename = "dat/drone/rotor/rotor" + std::to_string(drone_numb) + std::to_string(i) + ".dat";
+        rotor_filename =
+            "dat/drone/rotor/rotor" + std::to_string(drone_numb) + std::to_string(i) + ".dat";
         rotor[i].AddFilename(rotor_filename);
         link.AddFilename(rotor_filename.c_str());
     }
@@ -182,7 +186,8 @@ void Drone::AddMembersFilenames(PzG::GnuplotLink& link, unsigned int drone_numb)
  */
 bool Drone::IsCollisionDetected(std::shared_ptr<Drone> drone) const {
     double distance_between_middles =
-        (this->drone_middle_coords.CalculateNewVector(drone->GetDroneMiddle())).CalculateVectorLength();
+        (this->drone_middle_coords.CalculateNewVector(drone->GetDroneMiddle()))
+            .CalculateVectorLength();
     if (distance_between_middles < (this->GetDroneHeight() / 2) + (drone->GetDroneHeight() / 2)) {
         return true;
     }
@@ -191,4 +196,11 @@ bool Drone::IsCollisionDetected(std::shared_ptr<Drone> drone) const {
         return true;
     }
     return false;
+}
+
+void Drone::Zero() {
+    corpus.Zero();
+    for (int i = 0; i < ROTOR_NUMB; ++i) {
+        rotor[i].Zero();
+    }
 }

@@ -18,11 +18,13 @@ class Drone : public SceneObject {
 
     // int rotor_numb = ROTOR_NUMB;  // ilosc rotorow drona
     double corpus_height, corpus_edge_length, rotor_height, rotor_edge_length;  // wymiary drona
-    Vector3D corpus_middle_coords;                                              // wspolrzedne srodka korpusu
-    Vector3D drone_middle_coords;                                               // wspolrzedne srodka drona
-    double Zrotation;  // kat o jaki aktualnie obrocony jest dron
+    Vector3D corpus_middle_coords;  // wspolrzedne srodka korpusu
+    Vector3D drone_middle_coords;   // wspolrzedne srodka drona
+    double Zrotation;               // kat o jaki aktualnie obrocony jest dron
     DroneCorpus corpus;
     DroneRotor rotor[ROTOR_NUMB];
+
+    unsigned int drone_numb;
 
     /* --------------------------------- METODY --------------------------------- */
     void AddRotationAngle(double rotation_angle);
@@ -38,6 +40,8 @@ class Drone : public SceneObject {
     bool WriteWertexToFile() override;
     bool IsCollisionDetected(std::shared_ptr<Drone> drone) const override;
 
+    void Zero();
+
     /* ------------------------------ METODY RUCHU ------------------------------ */
     void RotateCorpus(double rotation_angle);
     void RotateAllRotors(double rotation_angle);
@@ -48,4 +52,5 @@ class Drone : public SceneObject {
     const Vector3D& GetDroneMiddle() const;
     double GetDroneHeight() const;
     double GetEdgeLength() const;
+    unsigned int GetDroneNumb() const { return drone_numb; }
 };

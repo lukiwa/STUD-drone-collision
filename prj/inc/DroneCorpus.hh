@@ -18,7 +18,7 @@ class DroneCorpus : public Cuboid {
      */
     inline void AddFilename(std::string filename) { this->filename = filename; }
     /**
-     * @brief Zapisuje wspolrzedne do pliku     
+     * @brief Zapisuje wspolrzedne do pliku
      *
      * @return true jezeli udalo sie zapisac
      * @return false jezeli nie udalo sie zapisac
